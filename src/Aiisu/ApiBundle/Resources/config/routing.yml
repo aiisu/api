@@ -1,0 +1,8 @@
+api_homepage:
+    path:     /
+    defaults: { _controller: ApiBundle:Default:index }
+
+api_reg:
+        resource: '@ApiBundle/Controller/ApiController.php'
+        type: rest
+
