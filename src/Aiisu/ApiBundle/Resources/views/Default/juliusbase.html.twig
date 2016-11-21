@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %} Hatsuwa {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/api/css/angular-material.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/api/css/index.css') }}" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock %}
+{% block body %}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var basePath = "{{ asset('bundles/api/') }}";
+    </script>
+    <script src="{{ asset('bundles/api/js/animation.js') }}"></script>
+    <script src="{{ asset('bundles/api/js/angular.min.js') }}"></script>
+    <script src="{{ asset('bundles/api/js/angular-animate.min.js') }}"></script>
+    <script src="{{ asset('bundles/api/js/angular-aria.min.js') }}"></script>
+    <script src="{{ asset('bundles/api/js/angular-messages.min.js') }}"></script>
+    <script src="{{ asset('bundles/api/js/angular-material.min.js') }}"></script>
+    <script src="{{ asset('bundles/api/js/audiodisplay.js') }}"></script>
+    <script src="{{ asset('bundles/api/js/recorderjs/recorder.js') }}"></script>
+    <script src="{{ asset('bundles/api/js/recorderjs/recorderWorker.js') }}"></script>
+    <script src="{{ asset('bundles/api/js/main.js') }}"></script>
+    <script src="{{ asset('bundles/api/js/app.js') }}"></script>
+    <script src="{{ asset('bundles/api/js/tohiragana.js') }}"></script>
+{% endblock %}

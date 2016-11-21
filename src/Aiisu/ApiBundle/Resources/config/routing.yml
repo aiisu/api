@@ -2,7 +2,12 @@ api_homepage:
     path:     /
     defaults: { _controller: ApiBundle:Default:index }
 
+
 api_reg:
+        prefix: /api
         resource: '@ApiBundle/Controller/ApiController.php'
         type: rest
 
+api_data:
+       path:     /{usrname}
+       defaults: { _controller: ApiBundle:Default:showResult }

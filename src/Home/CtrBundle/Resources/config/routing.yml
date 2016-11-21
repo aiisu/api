@@ -1,0 +1,9 @@
+home_ctr_homepage:
+    path:     /
+    defaults: { _controller: HomeCtrBundle:Default:index }
+
+home_ctr_api:
+      prefix: /api
+      resource: '@HomeCtrBundle/Controller/ApiController.php'
+      type: rest
+

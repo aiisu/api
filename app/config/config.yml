@@ -71,23 +71,51 @@ swiftmailer:
 nelmio_cors:
     defaults:
         allow_credentials: false
-        allow_origin: ['*']
-        allow_headers: ['X-Custom-Auth']
-        allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
-        max_age: 3600
+        allow_origin: []
+        allow_headers: []
+        allow_methods: []
+        max_age: 0
         hosts: []
         origin_regex: false
+    paths:
+        '^/api':
+            allow_origin: ['*']
+            allow_headers: ['*']
+            allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+            max_age: 3600
+
 # Friendsofsymfony Configuration
 fos_rest:
+    disable_csrf_role: ROLE_API
     body_listener: true
     format_listener:
         rules:
-            - { path: '^/', priorities: ['json'], fallback_format: json, prefer_extension: false }
+            - { path: '^/julius/api', priorities: [ 'json' ], fallback_format: json, prefer_extension: true }
+            - { path: '^/julius', priorities: [ 'html', '*/*'], fallback_format: html, prefer_extension: true }
+            - { path: '^/julius/data/kabocha', priorities: [ 'html', '*/*'], fallback_format: html, prefer_extension: true }
+            - { path: '^/home/api', priorities: [ 'json' ], fallback_format: json, prefer_extension: true }
+            - { path: '^/', priorities: ['text/html', '*/*'], prefer_extension: true }
     param_fetcher_listener: true
     view:
         view_response_listener: 'force'
         formats:
             json: true
-    routing_loader:
-        default_format: json
+        templating_formats:
+            html: true
+    exception:
+            codes:
+                'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
+                'Doctrine\ORM\OptimisticLockException': HTTP_CONFLICT
+            messages:
+                'Symfony\Component\Routing\Exception\ResourceNotFoundException': true
+    allowed_methods_listener: true
+    access_denied_listener:
+        json: true
+    body_listener: true
+
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
 

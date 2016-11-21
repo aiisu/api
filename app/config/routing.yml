@@ -1,4 +1,10 @@
+home_ctr:
+    resource: "@HomeCtrBundle/Resources/config/routing.yml"
+    prefix:   /home
+
 api:
     resource: "@ApiBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /julius
 
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

@@ -1,1 +1,116 @@
-Hello World!
+{% extends '@ApiBundle/Resources/views/Default/juliusbase.html.twig' %}
+{% block title %}  {{ parent() }} {% endblock %}
+{% block body %}
+    <md-toolbar class = "md-indigo" md-whiteframe="3" >
+        <div class="md-toolbar-tools toptoolbar" id="toolbar" >
+            <a id="test" href="#">Welcome {{ name }}</a>
+            <span flex></span>
+            <md-button class="md-icon-button" aria-label="Icon">
+                <md-tooltip>add</md-tooltip>
+                <md-icon md-font-set="material-icons"> add </md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Icon">
+                <md-tooltip>Help</md-tooltip>
+                <md-icon md-font-set="material-icons md-dark" > help </md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-content flex >
+        <div class="divinbox" id="backgroudcontent" layout="column" layout-gt-sm="row" style="overflow: hidden;">
+            <md-button layout="row" class="md-raised buttonstart"  ng-click="mic_click()" id="buttonstart">
+                <div id="buttonword" class="wordcolor_button wordfont_button">Click to Start</div>
+                <md-icon md-font-set="material-icons" style="float: right ;margin-right: 10px" id="mic"> mic_none</md-icon>
+            </md-button>
+            <div flex-gt-sm="40" style="background-color: white;display: none;" id="leftpain">
+                <md-toolbar layout="row" class="md-accent md-hue-1">
+                    <h2 class="md-title" >Recognition</h2>
+                </md-toolbar>
+                <md-divider></md-divider>
+                <md-content style="height: 100%;background-color: white" >
+                    <section>
+
+                        <div class="listitem" md-dynamic-height ng-repeat="recognition in clickedrecognitions track by $index" layout="row" layout-gt-sm="row" >
+                            <div flex="5" class="listbar" style="background-color: #5C6BC0;">
+                                <h6 class="rotateword" style="color:#E8EAF6">Clicked</h6>
+                            </div>
+                            <h4 flex="95" style="padding-left: 15px">[[recognition.result]]</h4>
+                        </div>
+
+                    </section>
+                    <section >
+                        <div class="listitem"  md-dynamic-height ng-repeat="recognition in newrecognitions track by $index" layout="column" layout-gt-sm="column" >
+                            <div class="listitemcontent" layout="row" layout-gt-sm="row" ng-click="resultOnclick(recognition.bestnode)">
+                                <div flex="5" class="listbar" style="background-color: #9C27B0;" >
+                                    <h6 class="rotateword" style="color:#F3E5F5">NEW</h6>
+                                </div>
+                                <h4 flex="95" style="padding-left: 15px">[[recognition.best]]</h4>
+                            </div>
+                            <div class="listitemchild" md-dynamic-height ng-repeat="inResult in recognition.results track by $index" layout="row" layout-gt-sm="row" ng-click="resultOnclick(inResult)">
+                                <div flex="5" class="listbar" style="background-color: rgba(156, 39, 176, 0.30);"></div>
+                                <h5 flex="95" style="padding-left: 10%">[[inResult.result]]</h5>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="listitem" md-dynamic-height ng-repeat="recognition in oldrecognitions track by $index" layout="column" layout-gt-sm="column" >
+                            <div class="listitemcontent" layout="row" layout-gt-sm="row" ng-click="resultOnclick(recognition.bestnode)">
+                                <div flex="5" class="listbar" style="background-color: #FF9800;" >
+                                    <h6 class="rotateword" style="color:#FFF3E0">OLD</h6>
+                                </div>
+                                <h4 flex="95" style="padding-left: 15px">[[recognition.best]]</h4>
+                            </div>
+                            <div class="listitemchild" md-dynamic-height ng-repeat="inResult in recognition.results track by $index" layout="row" layout-gt-sm="row" ng-click="resultOnclick(inResult)">
+                                <div flex="5" class="listbar" style="background-color: rgba(255, 152, 0, 0.30)"></div>
+                                <h5 flex="95" style="padding-left: 10%">[[inResult.result]]</h5>
+                            </div>
+                        </div>
+                    </section>
+                </md-content>
+            </div>
+            <md-divider></md-divider>
+            <div class="md-background" flex-gt-sm="60" style="display: none;" id="rightpain">
+                <md-toolbar layout="row center" class="md-accent md-hue-1">
+                    <h2 class="md-title">Possible Result</h2>
+                </md-toolbar>
+                <md-divider></md-divider>
+                <md-content style="height: 100%" >
+                    <md-grid-list
+                            class="md-background"
+                            md-cols-xs="1" md-cols-sm="2" md-cols-md="6" md-cols-gt-md="8"
+                            md-row-height-gt-md="1:1" md-row-height="1:1"
+                            md-gutter="0px" md-gutter-gt-sm="0px" >
+
+                        <md-grid-tile
+                                style="background-color: white"
+                                ng-repeat="possible in searchresults track by $index"
+                                md-rowspan="2"
+                                md-colspan="2" md-colspan-sm="2" md-colspan-xs="2">
+                            <div layout="column" style="border: 1px solid rgba(255, 255, 255, 0)" layout-fill>
+                                <md-card layout-fill layout="column">
+                                    <md-card-title>
+                                        <md-card-title-text>
+                                            <span class="md-headline">Before: [[possible.before]]</span>
+                                        </md-card-title-text>
+                                    </md-card-title>
+                                    <md-card-content>
+                                        <p>After: [[possible.after]]</p>
+                                    </md-card-content>
+                                    <div style="height: 25px;width: 100%;background: rgba(158, 154, 154, 0.55);text-align:center;color: white" layout="column" ng-click="none">Speek</div>
+                                </md-card>
+                            </div>
+
+                        </md-grid-tile>
+
+            </div>
+        </div>
+
+    </md-content>
+
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+
+{% endblock %}

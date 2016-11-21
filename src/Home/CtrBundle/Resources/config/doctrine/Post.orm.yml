@@ -1,0 +1,11 @@
+Home\CtrBundle\Entity\Post:
+    type: entity
+    table: null
+    repositoryClass: Home\CtrBundle\Repository\PostRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }
